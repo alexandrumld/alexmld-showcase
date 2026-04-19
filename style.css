@@ -140,12 +140,6 @@ body {
   padding: 80px 40px 40px;
 }
 
-@media (max-width: 768px) {
-  .style-section {
-    padding: 60px 20px 40px;
-  }
-}
-
 .section-header {
   text-align: center;
   margin-bottom: 60px;
@@ -474,9 +468,10 @@ body {
 }
 
 /* ==============================
-   Responsive
+   Responsive — Tablet (max-width: 768px)
    ============================== */
 @media (max-width: 768px) {
+  /* Nav → bottom bar */
   .float-nav {
     right: auto;
     left: 50%;
@@ -484,6 +479,12 @@ body {
     bottom: 20px;
     transform: translateX(-50%);
     flex-direction: row;
+    gap: 8px;
+    padding: 8px 12px;
+    background: rgba(10, 10, 10, 0.85);
+    border-radius: 28px;
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.08);
   }
 
   .nav-link {
@@ -492,53 +493,375 @@ body {
     font-size: 11px;
   }
 
-  .magnetic-grid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    min-height: 600px;
-  }
-
-  .stacked-cards-container {
-    height: 60vh;
-  }
-
-  .card-inner {
-    padding: 20px;
-  }
-
-  .card-inner h3 {
-    font-size: 18px;
-  }
-
-  .typo-title {
-    font-size: clamp(36px, 10vw, 80px) !important;
-  }
-
-  .wipe-project {
-    padding: 32px;
-  }
-
-  .disorder-container {
-    height: 60vh;
-  }
-
-  .tunnel-viewport {
-    height: 60vh;
-  }
-}
-
-@media (max-width: 480px) {
+  /* Sections */
   .style-section {
-    padding: 40px 16px 24px;
+    padding: 60px 20px 40px;
   }
 
   .section-header {
     margin-bottom: 32px;
   }
 
+  .section-title {
+    font-size: clamp(24px, 7vw, 36px);
+  }
+
+  .section-desc {
+    font-size: 14px;
+  }
+
+  /* Stacked Cards: simpler, shorter, no 3D */
+  .stacked-cards-container {
+    height: auto;
+    min-height: 0;
+    perspective: none;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .project-card {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 65%; /* aspect ratio */
+    top: auto;
+    left: auto;
+  }
+
+  .project-card .card-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  }
+
+  /* Circular Wipe: full-width, taller text padding */
+  #circularWipe {
+    border-radius: 12px;
+    min-height: 400px;
+  }
+
+  .wipe-project {
+    padding: 28px 24px;
+  }
+
+  .wipe-project h3 {
+    font-size: clamp(20px, 5vw, 28px);
+  }
+
+  /* Disorder: CSS grid from the start on mobile */
+  .disorder-container {
+    position: relative;
+    height: auto;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 12px;
+    aspect-ratio: auto;
+    min-height: 500px;
+  }
+
+  .disorder-card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    will-change: auto;
+  }
+
+  .disorder-card .card-inner {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  }
+
+  /* Tunnel: no 3D, just stacked cards */
+  .tunnel-viewport {
+    perspective: none;
+    transform-style: flat;
+    height: auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow: visible;
+  }
+
+  .tunnel-card {
+    position: relative;
+    width: 100%;
+    max-width: none;
+    height: 0;
+    padding-bottom: 65%;
+    min-height: 0;
+    border-radius: 12px;
+    padding: 0;
+    backface-visibility: visible;
+    will-change: auto;
+  }
+
+  .tunnel-card .card-inner,
+  .tunnel-card .card-num,
+  .tunnel-card h3 {
+    /* inner content needs no special override */
+  }
+
+  /* Typography Morph: smaller fonts */
+  .typo-morph-container {
+    min-height: 400px;
+  }
+
+  .typo-title {
+    font-size: clamp(36px, 10vw, 80px) !important;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .typo-title .char {
+    will-change: auto;
+  }
+
+  /* Magnetic Grid: 2 columns */
+  .magnetic-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    min-height: 500px;
+    max-height: none;
+    aspect-ratio: auto;
+    gap: 12px;
+  }
+
+  .magnetic-card {
+    will-change: auto;
+  }
+
+  /* Cards */
+  .card-inner {
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .card-inner h3 {
+    font-size: 16px;
+  }
+
+  .card-num {
+    font-size: 12px;
+    top: 16px;
+    left: 16px;
+  }
+}
+
+/* ==============================
+   Responsive — Phone (max-width: 480px)
+   ============================== */
+@media (max-width: 480px) {
+  .style-section {
+    padding: 40px 16px 24px;
+  }
+
+  .section-header {
+    margin-bottom: 24px;
+  }
+
+  .section-title {
+    font-size: clamp(20px, 8vw, 28px);
+  }
+
+  .section-desc {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  /* Hero adjustments */
+  .hero {
+    padding: 24px 16px;
+  }
+
+  .hero-title {
+    font-size: clamp(36px, 12vw, 60px);
+    line-height: 0.9;
+    margin-bottom: 16px;
+  }
+
+  .hero-sub {
+    font-size: 13px;
+  }
+
+  .scroll-hint {
+    bottom: 24px;
+  }
+
+  /* Stacked cards: even more compact */
+  .stacked-cards-container {
+    gap: 12px;
+  }
+
+  .project-card {
+    padding-bottom: 70%;
+  }
+
+  /* Circular Wipe */
+  #circularWipe {
+    min-height: 350px;
+    border-radius: 8px;
+  }
+
+  .wipe-project {
+    padding: 20px 16px;
+  }
+
+  .wipe-project h3 {
+    font-size: 18px;
+  }
+
+  /* Disorder */
+  .disorder-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  /* Tunnel */
+  .tunnel-viewport {
+    gap: 12px;
+  }
+
+  .tunnel-card {
+    padding-bottom: 75%;
+    border-radius: 8px;
+  }
+
+  /* Typography morph */
+  .typo-morph-container {
+    min-height: 350px;
+  }
+
+  .typo-title {
+    font-size: clamp(28px, 11vw, 56px) !important;
+  }
+
+  /* Magnetic Grid: single column on phone */
   .magnetic-grid {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(6, 1fr);
-    min-height: 800px;
+    min-height: 0;
+    gap: 10px;
+  }
+
+  .magnetic-card {
+    min-height: 120px;
+  }
+
+  /* Card text */
+  .card-inner {
+    padding: 16px;
+  }
+
+  .card-inner h3 {
+    font-size: 15px;
+  }
+
+  /* Footer */
+  .showcase-footer {
+    padding: 40px 16px 24px;
+  }
+
+  .showcase-footer p {
+    font-size: 16px;
+  }
+
+  /* Nav */
+  .float-nav {
+    bottom: 12px;
+    gap: 4px;
+    padding: 6px 10px;
+  }
+
+  .nav-link {
+    width: 32px;
+    height: 32px;
+    font-size: 10px;
+  }
+}
+
+/* ==============================
+   Touch device (hover: none) rules
+   ============================== */
+@media (hover: none) {
+  /* Disable hover-scale on magnetic cards */
+  .magnetic-card:hover .card-inner {
+    transform: none;
+  }
+
+  /* Remove will-change to save GPU memory */
+  .disorder-card,
+  .tunnel-card,
+  .magnetic-card,
+  .typo-title .char {
+    will-change: auto;
+  }
+
+  /* Reduce blur effects */
+  .nav-link {
+    backdrop-filter: none;
+    background: rgba(10, 10, 10, 0.9);
+  }
+
+  .float-nav {
+    backdrop-filter: none;
+    background: rgba(10, 10, 10, 0.9);
+  }
+
+  /* Simpler transitions on touch */
+  .magnetic-card {
+    transition: none;
+  }
+
+  .magnetic-card .card-inner {
+    transition: transform 0.2s ease;
+  }
+
+  /* Active state for touch */
+  .magnetic-card:active .card-inner {
+    transform: scale(1.03);
+  }
+
+  /* Remove hover cursor change */
+  .magnetic-card {
+    cursor: default;
+  }
+
+  /* Reduce motion preference */
+  .scroll-line {
+    animation: none;
+    opacity: 0.5;
+  }
+}
+
+/* ==============================
+   Reduced motion preference
+   ============================== */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-line {
+    animation: none;
+    opacity: 0.5;
+  }
+
+  .magnetic-card,
+  .magnetic-card .card-inner,
+  .nav-link {
+    transition: none;
+  }
+}
+
+/* ==============================
+   Safe area for notched phones
+   ============================== */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .float-nav {
+    bottom: calc(12px + env(safe-area-inset-bottom));
+  }
+
+  .showcase-footer {
+    padding-bottom: calc(24px + env(safe-area-inset-bottom));
   }
 }
