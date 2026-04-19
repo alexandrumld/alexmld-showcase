@@ -1,6 +1,7 @@
 /* ============================================
    ALEXMLD — AVANT-GARDE GALLERY SHOWCASE
    Dark cinematic palette, Syne/Inter, GSAP-powered
+   Mobile-optimized: no 3D, no blur, no will-change on mobile
    ============================================ */
 
 /* --- Reset & Base --- */
@@ -38,7 +39,7 @@ body {
 
 img { max-width: 100%; display: block; }
 
-/* --- Floating Side Nav --- */
+/* --- Floating Side Nav (Desktop) / Bottom Pill Bar (Mobile) --- */
 .float-nav {
   position: fixed;
   right: 24px;
@@ -101,18 +102,6 @@ img { max-width: 100%; display: block; }
   opacity: 1;
 }
 
-@media (max-width: 768px) {
-  .float-nav {
-    right: 10px;
-    gap: 2px;
-  }
-  .nav-link {
-    padding: 4px 7px;
-    font-size: 10px;
-  }
-  .nav-label { display: none; }
-}
-
 /* --- Hero --- */
 .hero {
   position: relative;
@@ -127,6 +116,7 @@ img { max-width: 100%; display: block; }
   position: relative;
   z-index: 2;
   text-align: center;
+  padding: 0 20px;
 }
 
 .hero-title {
@@ -341,7 +331,6 @@ img { max-width: 100%; display: block; }
 
 .mobile-card {
   margin-bottom: 20px;
-  will-change: transform, opacity;
 }
 
 .mobile-card-inner {
@@ -471,6 +460,42 @@ img { max-width: 100%; display: block; }
   height: 100vh;
   pointer-events: none;
   z-index: 50;
+}
+
+/* Mobile blob cards */
+.mobile-blob-cards {
+  display: none;
+  padding: 20px clamp(16px, 4vw, 40px) 60px;
+}
+
+.mobile-blob-card {
+  margin-bottom: 20px;
+}
+
+.mobile-blob-card-inner {
+  border-radius: 50%;
+  padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  min-width: 200px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.mobile-blob-card-inner h3 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+}
+
+.mobile-blob-card-inner .card-num {
+  font-size: 13px;
+  opacity: 0.7;
+  margin-bottom: 6px;
 }
 
 /* ============================================
@@ -756,39 +781,180 @@ img { max-width: 100%; display: block; }
 }
 
 /* ============================================
-   REDUCED MOTION
+   REDUCED MOTION — disable ALL animations
    ============================================ */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
-  .hero-line { transform: none !important; }
+  .hero-line { transform: none !important; will-change: auto !important; }
   .hero-sub { opacity: 1 !important; transform: none !important; }
   .scroll-hint { opacity: 1 !important; }
-  .kinetic-orbit-card { opacity: 1 !important; }
-  .void-project { opacity: 1 !important; transform: none !important; }
+  .scroll-line { animation: none !important; }
+  .kinetic-orbit-card { opacity: 1 !important; transform: none !important; will-change: auto !important; }
+  .kinetic-center-glow { animation: none !important; }
+  .void-project { opacity: 1 !important; transform: none !important; will-change: auto !important; }
+  .void-singularity::before { animation: none !important; will-change: auto !important; }
+  .shatter-project { opacity: 1 !important; clip-path: none !important; will-change: auto !important; }
+  .wipe-project { opacity: 1 !important; clip-path: none !important; will-change: auto !important; }
+  .blob-svg { transform: none !important; will-change: auto !important; }
+  .helix-card { opacity: 1 !important; transform: none !important; will-change: auto !important; }
+  .mobile-card { opacity: 1 !important; transform: none !important; }
+  .mobile-blob-card { opacity: 1 !important; transform: none !important; }
 }
 
 /* ============================================
-   MOBILE OVERRIDES
+   MOBILE OVERRIDES (max-width: 768px)
    ============================================ */
 @media (max-width: 768px) {
-  .section-header {
-    padding: 20px 16px;
+  /* ─── Body: prevent horizontal scroll ─── */
+  body {
+    overflow-x: hidden;
   }
 
-  /* Kinetic: hide desktop, show mobile */
+  /* ─── Nav: bottom pill bar ─── */
+  .float-nav {
+    position: fixed;
+    bottom: 16px;
+    left: 50%;
+    right: auto;
+    top: auto;
+    transform: translateX(-50%);
+    flex-direction: row;
+    gap: 0;
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 28px;
+    padding: 6px 4px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    max-width: 95vw;
+  }
+  .float-nav::-webkit-scrollbar { display: none; }
+
+  .nav-link {
+    padding: 10px 12px;
+    font-size: 11px;
+    border-radius: 20px;
+    min-width: 44px;
+    min-height: 44px;
+    justify-content: center;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: transparent;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .nav-label { display: none; }
+
+  .nav-num {
+    font-size: 12px;
+    min-width: auto;
+  }
+
+  /* ─── Section headers: proper mobile padding ─── */
+  .section-header {
+    padding: 20px 16px;
+    position: relative;
+  }
+
+  .section-title {
+    font-size: clamp(24px, 6vw, 36px);
+  }
+
+  .section-desc {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ─── Hero ─── */
+  .hero-content {
+    padding: 0 24px;
+  }
+  .hero-title {
+    font-size: clamp(40px, 14vw, 72px);
+  }
+  .hero-sub {
+    font-size: 14px;
+    margin-top: 16px;
+  }
+  .hero-particles {
+    display: none !important;
+  }
+  .scroll-hint {
+    bottom: 80px;
+  }
+
+  /* ─── Kinetic: hide desktop, show mobile stacked cards ─── */
   .kinetic-solar-system { display: none !important; }
   .kinetic-viewport { display: none !important; }
+  .kinetic-center-glow { display: none !important; }
   .kinetic-mobile { display: block !important; }
 
-  /* Helix: simplified */
-  .helix-container { perspective: none; }
-  .helix-particles { display: none !important; }
-  .helix-rung { display: none !important; }
-  .helix-viewport { height: auto !important; min-height: 100vh; padding-bottom: 60px; }
+  .mobile-card-inner {
+    padding: 28px 20px;
+    min-height: 160px;
+  }
+  .mobile-card-inner h3 {
+    font-size: 16px;
+  }
+
+  /* ─── Shatter: simple vertical reveal, no cracks/fragments ─── */
+  .shatter-viewport { height: auto !important; min-height: 100vh; padding-bottom: 60px; }
+  .shatter-project {
+    height: 50vh;
+    position: relative !important;
+    min-height: 300px;
+  }
+  .shatter-project h3 {
+    font-size: clamp(24px, 6vw, 40px);
+  }
+  .shatter-project .card-num {
+    font-size: 60px;
+  }
+  .shatter-cracks-svg { display: none !important; }
+  .shatter-fragments-container { display: none !important; }
+
+  /* ─── Blob: simple fade/scale, no SVG blob ─── */
+  .blob-viewport { height: auto !important; min-height: 100vh; padding-bottom: 60px; }
+  .blob-svg { display: none !important; }
+  .blob-drip-canvas { display: none !important; }
+  .mobile-blob-cards { display: block !important; }
+
+  /* ─── Wipe: simple slide reveal, no parallax/blur/clip-path ─── */
+  .wipe-viewport { height: auto !important; min-height: 100vh; padding-bottom: 60px; }
+  .wipe-project {
+    height: 50vh;
+    position: relative !important;
+    min-height: 300px;
+  }
+  .wipe-project h3 {
+    font-size: clamp(24px, 6vw, 40px);
+  }
+  .wipe-split-line { display: none !important; }
+  .wipe-black-flash { display: none !important; }
+  .wipe-accent { display: none !important; }
+  .wipe-layer {
+    will-change: auto !important;
+  }
+
+  /* ─── Helix: stacked cards, no 3D/particles/rungs ─── */
+  .helix-viewport { height: auto !important; min-height: 100vh; padding: 20px 0 60px; }
+  .helix-container {
+    perspective: none !important;
+    transform-style: flat !important;
+    height: auto !important;
+    position: relative !important;
+    flex-direction: column;
+    overflow: visible !important;
+  }
   .helix-card {
     position: relative !important;
     width: 85% !important;
@@ -796,38 +962,130 @@ img { max-width: 100%; display: block; }
     height: auto !important;
     margin: 0 auto 16px !important;
     transform: none !important;
+    will-change: auto !important;
+    transform-style: flat !important;
   }
   .helix-card-inner {
     min-height: 180px;
+    backface-visibility: visible !important;
   }
+  .helix-particles { display: none !important; }
+  .helix-rung { display: none !important; }
 
-  /* Void: simplified */
-  .void-starfield { display: none !important; }
+  /* ─── Void: scale from center with flash, no starfield/particles ─── */
+  .void-viewport { height: auto !important; min-height: 100vh; padding-bottom: 60px; }
+  .void-singularity {
+    position: relative !important;
+    height: 100px !important;
+  }
   .void-singularity::before {
     width: 4px;
     height: 4px;
     box-shadow:
       0 0 20px 6px rgba(255,255,255,0.5),
       0 0 40px 15px rgba(229,93,135,0.15);
+    animation: none;
+  }
+  .void-starfield { display: none !important; }
+  .void-project-wrapper {
+    position: relative !important;
+    height: auto !important;
+    will-change: auto !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 16px;
   }
   .void-project {
-    width: 85vmin;
-    height: 60vmin;
+    position: relative !important;
+    width: 85vw !important;
+    height: auto !important;
+    max-width: none !important;
+    max-height: none !important;
+    min-height: 200px;
+    will-change: auto !important;
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  .void-flash {
+    mix-blend-mode: normal;
   }
 
-  /* Blob: simplified */
-  .blob-viewport { height: 300vh !important; }
-  .blob-drip-canvas { display: none !important; }
+  /* ─── Footer ─── */
+  .showcase-footer {
+    padding: 60px 16px 100px;
+  }
 
-  /* Shatter: simplified */
-  .shatter-viewport { height: 300vh !important; }
-  .shatter-cracks-svg { display: none !important; }
-  .shatter-fragments-container { display: none !important; }
-  .shatter-project { height: 50vh; }
+  /* ─── Remove will-change on mobile (wastes memory) ─── */
+  .kinetic-orbit-card,
+  .kinetic-card-inner,
+  .shatter-project,
+  .shatter-fragment,
+  .blob-svg,
+  .wipe-project,
+  .wipe-layer,
+  .wipe-split-line,
+  .helix-card,
+  .helix-rung,
+  .void-project-wrapper,
+  .void-project,
+  .void-singularity::before,
+  .hero-line {
+    will-change: auto !important;
+  }
 
-  /* Wipe: simplified */
-  .wipe-viewport { height: 300vh !important; }
-  .wipe-split-line { display: none !important; }
-  .wipe-black-flash { display: none !important; }
-  .wipe-project { height: 50vh; }
+  /* ─── Remove filter: blur() on mobile ─── */
+  .wipe-bg,
+  .wipe-split-line,
+  .blob-svg {
+    filter: none !important;
+  }
+
+  /* ─── Remove perspective & preserve-3d on mobile ─── */
+  .kinetic-solar-system,
+  .shatter-fragments-container,
+  .helix-container,
+  .helix-card {
+    perspective: none !important;
+    transform-style: flat !important;
+  }
+
+  .kinetic-orbit-card,
+  .kinetic-card-inner,
+  .shatter-fragment,
+  .helix-card,
+  .helix-card-inner {
+    transform-style: flat !important;
+    backface-visibility: visible !important;
+  }
+
+  /* ─── Cards full-width on mobile ─── */
+  .kinetic-orbit-card,
+  .helix-card {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-top: 0 !important;
+  }
+
+  /* ─── Ensure readable font sizes at 375px ─── */
+  .card-num {
+    font-size: 12px;
+  }
+
+  /* ─── Touch targets ≥ 44px ─── */
+  .nav-link {
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ─── Remove backdrop-filter on mobile (expensive) ─── */
+  .nav-link,
+  .float-nav {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
 }

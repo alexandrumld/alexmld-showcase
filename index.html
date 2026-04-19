@@ -178,6 +178,8 @@
       <p class="section-desc">Projects breathe inside a morphing organic blob. Scroll to expand and reveal. The blob follows your cursor like a living thing.</p>
     </div>
     <div class="blob-viewport" id="blobViewport">
+      <!-- Mobile fallback cards (injected by JS if not present) -->
+      <div class="mobile-blob-cards" id="blobMobileCards" style="display:none;"></div>
       <svg class="blob-svg" id="blobSvg" viewBox="0 0 800 800">
         <defs>
           <filter id="blobGlow" x="-50%" y="-50%" width="200%" height="200%">
