@@ -1,0 +1,544 @@
+/* ============================================
+   Alexmld Gallery Animation Showcase
+   ============================================ */
+
+:root {
+  --white: #FFFFFF;
+  --black: #0A0A0A;
+  --gray-dark: #1A1A1A;
+  --gray-mid: #2A2A2A;
+  --gray-light: #888888;
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto; /* GSAP handles scrolling */
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--white);
+  color: var(--black);
+}
+
+/* ---- Floating Nav ---- */
+.float-nav {
+  position: fixed;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--gray-light);
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+  background: rgba(10,10,10,0.6);
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--black);
+  background: var(--white);
+  border-color: var(--white);
+  transform: scale(1.1);
+}
+
+/* ---- Hero ---- */
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px 20px;
+  position: relative;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 10vw, 120px);
+  font-weight: 800;
+  line-height: 0.95;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+}
+
+.hero-sub {
+  font-family: var(--font-body);
+  font-size: clamp(14px, 2vw, 18px);
+  color: var(--gray-light);
+  max-width: 500px;
+  line-height: 1.6;
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.scroll-hint span {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--gray-light);
+}
+
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: var(--gray-light);
+  animation: scrollPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(0.5); }
+  50% { opacity: 1; transform: scaleY(1); }
+}
+
+/* ---- Section Shared ---- */
+.style-section {
+  position: relative;
+  min-height: 100vh;
+  padding: 80px 40px 40px;
+}
+
+@media (max-width: 768px) {
+  .style-section {
+    padding: 60px 20px 40px;
+  }
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+  position: relative;
+  z-index: 10;
+}
+
+.section-num {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray-light);
+  letter-spacing: 0.1em;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 5vw, 56px);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  margin-bottom: 16px;
+}
+
+.section-desc {
+  font-size: clamp(13px, 1.5vw, 16px);
+  color: var(--gray-light);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ---- Project Card Shared ---- */
+.card-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-num {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0.7;
+  position: absolute;
+  top: 24px;
+  left: 24px;
+}
+
+.card-num.small {
+  font-size: 12px;
+  top: 16px;
+  left: 16px;
+}
+
+.card-inner h3 {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 3vw, 28px);
+  font-weight: 700;
+}
+
+/* ==============================
+   1. Stacked Cards
+   ============================== */
+.stacked-cards-container {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  height: 80vh;
+  margin: 0 auto;
+  perspective: 1200px;
+}
+
+.project-card {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform-origin: center center;
+}
+
+.project-card .card-inner {
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+/* ==============================
+   2. Circular Wipe
+   ============================== */
+#circularWipe {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  min-height: 500px;
+  max-height: 800px;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.wipe-project {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 48px;
+  overflow: hidden;
+}
+
+.wipe-project.current {
+  z-index: 1;
+}
+
+.wipe-project.next {
+  z-index: 2;
+  clip-path: circle(0% at 50% 50%);
+}
+
+.wipe-project h3 {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 4vw, 40px);
+  font-weight: 700;
+}
+
+.wipe-progress-bar {
+  width: 100%;
+  max-width: 700px;
+  height: 2px;
+  background: rgba(255,255,255,0.1);
+  margin: 20px auto 0;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.wipe-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--white);
+  border-radius: 2px;
+}
+
+/* ==============================
+   3. Disorder → Order
+   ============================== */
+.disorder-container {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  height: 70vh;
+  min-height: 500px;
+  margin: 0 auto;
+}
+
+.disorder-card {
+  position: absolute;
+  width: calc(33.333% - 16px);
+  height: calc(50% - 12px);
+  will-change: transform;
+}
+
+.disorder-card .card-inner {
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+/* ==============================
+   4. Perspective Tunnel
+   ============================== */
+.tunnel-viewport {
+  perspective: 1000px;
+  perspective-origin: center center;
+  width: 100%;
+  max-width: 800px;
+  height: 70vh;
+  min-height: 500px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+}
+
+.tunnel-card {
+  position: absolute;
+  width: 80%;
+  max-width: 600px;
+  height: 60%;
+  min-height: 300px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 40px;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.tunnel-card .card-num {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0.7;
+  position: absolute;
+  top: 24px;
+  left: 24px;
+}
+
+.tunnel-card h3 {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 700;
+}
+
+/* ==============================
+   5. Typography Morph
+   ============================== */
+.typo-morph-container {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  min-height: 500px;
+  overflow: hidden;
+}
+
+.typo-project {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  will-change: opacity;
+}
+
+.typo-project.active {
+  opacity: 1;
+}
+
+.typo-title {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 12vw, 160px);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.typo-title .char {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+.typo-project .card-num {
+  position: relative;
+  top: auto;
+  left: auto;
+  margin-bottom: 24px;
+}
+
+/* ==============================
+   6. Magnetic Repulsion
+   ============================== */
+.magnetic-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+  aspect-ratio: 3 / 2;
+  min-height: 500px;
+  max-height: 700px;
+}
+
+.magnetic-card {
+  position: relative;
+  will-change: transform;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.magnetic-card:hover .card-inner {
+  transform: scale(1.05);
+}
+
+.magnetic-card .card-inner {
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ---- Footer ---- */
+.showcase-footer {
+  text-align: center;
+  padding: 80px 20px 40px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.showcase-footer p {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.footer-sub {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--gray-light);
+  margin-top: 8px;
+}
+
+/* ==============================
+   Responsive
+   ============================== */
+@media (max-width: 768px) {
+  .float-nav {
+    right: auto;
+    left: 50%;
+    top: auto;
+    bottom: 20px;
+    transform: translateX(-50%);
+    flex-direction: row;
+  }
+
+  .nav-link {
+    width: 36px;
+    height: 36px;
+    font-size: 11px;
+  }
+
+  .magnetic-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    min-height: 600px;
+  }
+
+  .stacked-cards-container {
+    height: 60vh;
+  }
+
+  .card-inner {
+    padding: 20px;
+  }
+
+  .card-inner h3 {
+    font-size: 18px;
+  }
+
+  .typo-title {
+    font-size: clamp(36px, 10vw, 80px) !important;
+  }
+
+  .wipe-project {
+    padding: 32px;
+  }
+
+  .disorder-container {
+    height: 60vh;
+  }
+
+  .tunnel-viewport {
+    height: 60vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .style-section {
+    padding: 40px 16px 24px;
+  }
+
+  .section-header {
+    margin-bottom: 32px;
+  }
+
+  .magnetic-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, 1fr);
+    min-height: 800px;
+  }
+}
