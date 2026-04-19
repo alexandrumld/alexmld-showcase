@@ -3,260 +3,377 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alexmld — Gallery Animation Showcase</title>
+  <title>Alexmld — Avant-Garde Gallery Showcase</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Floating Nav -->
+  <!-- Floating Side Nav -->
   <nav class="float-nav" id="floatNav">
-    <a href="#style-1" class="nav-link" data-index="0">01</a>
-    <a href="#style-2" class="nav-link" data-index="1">02</a>
-    <a href="#style-3" class="nav-link" data-index="2">03</a>
-    <a href="#style-4" class="nav-link" data-index="3">04</a>
-    <a href="#style-5" class="nav-link" data-index="4">05</a>
-    <a href="#style-6" class="nav-link" data-index="5">06</a>
+    <a href="#style-1" class="nav-link active" data-index="0">
+      <span class="nav-num">01</span>
+      <span class="nav-label">Kinetic Sculpture</span>
+    </a>
+    <a href="#style-2" class="nav-link" data-index="1">
+      <span class="nav-num">02</span>
+      <span class="nav-label">Shattering Glass</span>
+    </a>
+    <a href="#style-3" class="nav-link" data-index="2">
+      <span class="nav-num">03</span>
+      <span class="nav-label">Liquid Morph</span>
+    </a>
+    <a href="#style-4" class="nav-link" data-index="3">
+      <span class="nav-num">04</span>
+      <span class="nav-label">Parallax Wipe</span>
+    </a>
+    <a href="#style-5" class="nav-link" data-index="4">
+      <span class="nav-num">05</span>
+      <span class="nav-label">DNA Helix</span>
+    </a>
+    <a href="#style-6" class="nav-link" data-index="5">
+      <span class="nav-num">06</span>
+      <span class="nav-label">Void Collapse</span>
+    </a>
   </nav>
 
   <!-- Hero -->
-  <header class="hero">
-    <h1 class="hero-title">Gallery<br>Animation<br>Showcase</h1>
-    <p class="hero-sub">6 transition styles for the alexmld portfolio. Scroll to explore each one.</p>
-    <div class="scroll-hint">
-      <span>Scroll</span>
-      <div class="scroll-line"></div>
+  <header class="hero" id="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">
+        <span class="hero-line">Gallery</span>
+        <span class="hero-line">Animation</span>
+        <span class="hero-line accent">Showcase</span>
+      </h1>
+      <p class="hero-sub">Six avant-garde transitions. Scroll to witness.</p>
+      <div class="scroll-hint">
+        <span class="scroll-text">Scroll</span>
+        <div class="scroll-line"></div>
+      </div>
     </div>
+    <canvas class="hero-particles" id="heroParticles"></canvas>
   </header>
 
-  <!-- Style 1: Stacked Cards -->
+  <!-- ===== SECTION 1: KINETIC SCULPTURE ===== -->
   <section class="style-section" id="style-1">
     <div class="section-header">
       <span class="section-num">01</span>
-      <h2 class="section-title">STACKED CARDS</h2>
-      <p class="section-desc">Cards stack in the center. Scrolling peels the top card off with 3D perspective rotation — it flies away revealing the next one.</p>
+      <h2 class="section-title">KINETIC SCULPTURE</h2>
+      <p class="section-desc">Orbiting solar system — projects drift like planets. Scroll accelerates the orbit. Cards break free and fly toward you.</p>
     </div>
-    <div class="stacked-cards-container" id="stackedCards">
-      <div class="project-card" data-index="0">
-        <div class="card-inner" style="background: linear-gradient(135deg, #FF6B6B, #556270);">
+    <div class="kinetic-viewport" id="kineticViewport">
+      <div class="kinetic-solar-system" id="kineticSolarSystem">
+        <div class="kinetic-center-glow"></div>
+        <div class="kinetic-orbit-card" data-index="0">
+          <div class="kinetic-card-inner" style="background: linear-gradient(135deg, #FF6B6B, #556270);">
+            <span class="card-num">01</span>
+            <h3>Project One</h3>
+          </div>
+        </div>
+        <div class="kinetic-orbit-card" data-index="1">
+          <div class="kinetic-card-inner" style="background: linear-gradient(135deg, #E55D87, #5FC3E4);">
+            <span class="card-num">02</span>
+            <h3>Project Two</h3>
+          </div>
+        </div>
+        <div class="kinetic-orbit-card" data-index="2">
+          <div class="kinetic-card-inner" style="background: linear-gradient(135deg, #C6426E, #9C27B0);">
+            <span class="card-num">03</span>
+            <h3>Project Three</h3>
+          </div>
+        </div>
+        <div class="kinetic-orbit-card" data-index="3">
+          <div class="kinetic-card-inner" style="background: linear-gradient(135deg, #2C3E50, #4CA1AF);">
+            <span class="card-num">04</span>
+            <h3>Project Four</h3>
+          </div>
+        </div>
+        <div class="kinetic-orbit-card" data-index="4">
+          <div class="kinetic-card-inner" style="background: linear-gradient(135deg, #DA22FF, #9733EE);">
+            <span class="card-num">05</span>
+            <h3>Project Five</h3>
+          </div>
+        </div>
+        <div class="kinetic-orbit-card" data-index="5">
+          <div class="kinetic-card-inner" style="background: linear-gradient(135deg, #EB3349, #F45C43);">
+            <span class="card-num">06</span>
+            <h3>Project Six</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Mobile fallback -->
+    <div class="kinetic-mobile" id="kineticMobile">
+      <div class="mobile-card" data-index="0">
+        <div class="mobile-card-inner" style="background: linear-gradient(135deg, #FF6B6B, #556270);">
+          <span class="card-num">01</span><h3>Project One</h3>
+        </div>
+      </div>
+      <div class="mobile-card" data-index="1">
+        <div class="mobile-card-inner" style="background: linear-gradient(135deg, #E55D87, #5FC3E4);">
+          <span class="card-num">02</span><h3>Project Two</h3>
+        </div>
+      </div>
+      <div class="mobile-card" data-index="2">
+        <div class="mobile-card-inner" style="background: linear-gradient(135deg, #C6426E, #9C27B0);">
+          <span class="card-num">03</span><h3>Project Three</h3>
+        </div>
+      </div>
+      <div class="mobile-card" data-index="3">
+        <div class="mobile-card-inner" style="background: linear-gradient(135deg, #2C3E50, #4CA1AF);">
+          <span class="card-num">04</span><h3>Project Four</h3>
+        </div>
+      </div>
+      <div class="mobile-card" data-index="4">
+        <div class="mobile-card-inner" style="background: linear-gradient(135deg, #DA22FF, #9733EE);">
+          <span class="card-num">05</span><h3>Project Five</h3>
+        </div>
+      </div>
+      <div class="mobile-card" data-index="5">
+        <div class="mobile-card-inner" style="background: linear-gradient(135deg, #EB3349, #F45C43);">
+          <span class="card-num">06</span><h3>Project Six</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 2: SHATTERING GLASS ===== -->
+  <section class="style-section" id="style-2">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">SHATTERING GLASS</h2>
+      <p class="section-desc">Full-screen panels crack and shatter into fragments. Scroll to fracture. Cursor guides the break point.</p>
+    </div>
+    <div class="shatter-viewport" id="shatterViewport">
+      <div class="shatter-project" data-index="0" style="background: linear-gradient(135deg, #FF6B6B, #556270);">
+        <span class="card-num">01</span><h3>Project One</h3>
+      </div>
+      <div class="shatter-project" data-index="1" style="background: linear-gradient(135deg, #E55D87, #5FC3E4);">
+        <span class="card-num">02</span><h3>Project Two</h3>
+      </div>
+      <div class="shatter-project" data-index="2" style="background: linear-gradient(135deg, #C6426E, #9C27B0);">
+        <span class="card-num">03</span><h3>Project Three</h3>
+      </div>
+      <div class="shatter-project" data-index="3" style="background: linear-gradient(135deg, #2C3E50, #4CA1AF);">
+        <span class="card-num">04</span><h3>Project Four</h3>
+      </div>
+      <div class="shatter-project" data-index="4" style="background: linear-gradient(135deg, #DA22FF, #9733EE);">
+        <span class="card-num">05</span><h3>Project Five</h3>
+      </div>
+      <div class="shatter-project" data-index="5" style="background: linear-gradient(135deg, #EB3349, #F45C43);">
+        <span class="card-num">06</span><h3>Project Six</h3>
+      </div>
+      <svg class="shatter-cracks-svg" id="shatterCracksSvg"></svg>
+      <div class="shatter-fragments-container" id="shatterFragments"></div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 3: LIQUID MORPH / BLOB ===== -->
+  <section class="style-section" id="style-3">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">LIQUID MORPH</h2>
+      <p class="section-desc">Projects breathe inside a morphing organic blob. Scroll to expand and reveal. The blob follows your cursor like a living thing.</p>
+    </div>
+    <div class="blob-viewport" id="blobViewport">
+      <svg class="blob-svg" id="blobSvg" viewBox="0 0 800 800">
+        <defs>
+          <filter id="blobGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur"/>
+            <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+          </filter>
+          <filter id="blobShine" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="12" result="blur"/>
+            <feOffset dx="0" dy="4" result="offsetBlur"/>
+            <feFlood flood-color="#ffffff" flood-opacity="0.15" result="color"/>
+            <feComposite in="color" in2="offsetBlur" operator="in" result="shadow"/>
+            <feMerge>
+              <feMergeNode in="SourceGraphic"/>
+              <feMergeNode in="shadow"/>
+            </feMerge>
+          </filter>
+          <clipPath id="blobClip">
+            <path id="blobClipPath" d="M400,100 C550,50 700,200 700,400 C700,600 550,750 400,700 C250,750 100,600 100,400 C100,200 250,50 400,100Z"/>
+          </clipPath>
+          <radialGradient id="blobGrad0" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#FF6B6B"/>
+            <stop offset="100%" stop-color="#556270"/>
+          </radialGradient>
+          <radialGradient id="blobGrad1" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#E55D87"/>
+            <stop offset="100%" stop-color="#5FC3E4"/>
+          </radialGradient>
+          <radialGradient id="blobGrad2" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#C6426E"/>
+            <stop offset="100%" stop-color="#9C27B0"/>
+          </radialGradient>
+          <radialGradient id="blobGrad3" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#2C3E50"/>
+            <stop offset="100%" stop-color="#4CA1AF"/>
+          </radialGradient>
+          <radialGradient id="blobGrad4" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#DA22FF"/>
+            <stop offset="100%" stop-color="#9733EE"/>
+          </radialGradient>
+          <radialGradient id="blobGrad5" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#EB3349"/>
+            <stop offset="100%" stop-color="#F45C43"/>
+          </radialGradient>
+        </defs>
+        <path id="blobShape" d="M400,100 C550,50 700,200 700,400 C700,600 550,750 400,700 C250,750 100,600 100,400 C100,200 250,50 400,100Z" fill="url(#blobGrad0)" filter="url(#blobShine)"/>
+        <g clip-path="url(#blobClip)" id="blobContent">
+          <text x="400" y="380" text-anchor="middle" fill="white" font-family="Syne" font-size="48" font-weight="800" id="blobTitle">Project One</text>
+          <text x="400" y="430" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="Inter" font-size="16" id="blobSubtitle">01 — First Creation</text>
+        </g>
+      </svg>
+      <canvas class="blob-drip-canvas" id="blobDripCanvas"></canvas>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 4: PARALLAX CINEMATIC WIPE ===== -->
+  <section class="style-section" id="style-4">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2 class="section-title">PARALLAX CINEMATIC WIPE</h2>
+      <p class="section-desc">Kubrick dolly between film sets. Diagonal split with parallax depth. Luxurious expo easing. Film cuts in black.</p>
+    </div>
+    <div class="wipe-viewport" id="wipeViewport">
+      <div class="wipe-project" data-index="0">
+        <div class="wipe-layer wipe-bg" style="background: linear-gradient(135deg, #FF6B6B, #556270);"></div>
+        <div class="wipe-layer wipe-accent"></div>
+        <div class="wipe-layer wipe-content">
           <span class="card-num">01</span>
           <h3>Project One</h3>
         </div>
       </div>
-      <div class="project-card" data-index="1">
-        <div class="card-inner" style="background: linear-gradient(135deg, #E55D87, #5FC3E4);">
+      <div class="wipe-project" data-index="1">
+        <div class="wipe-layer wipe-bg" style="background: linear-gradient(135deg, #E55D87, #5FC3E4);"></div>
+        <div class="wipe-layer wipe-accent"></div>
+        <div class="wipe-layer wipe-content">
           <span class="card-num">02</span>
           <h3>Project Two</h3>
         </div>
       </div>
-      <div class="project-card" data-index="2">
-        <div class="card-inner" style="background: linear-gradient(135deg, #C6426E, #9C27B0);">
+      <div class="wipe-project" data-index="2">
+        <div class="wipe-layer wipe-bg" style="background: linear-gradient(135deg, #C6426E, #9C27B0);"></div>
+        <div class="wipe-layer wipe-accent"></div>
+        <div class="wipe-layer wipe-content">
           <span class="card-num">03</span>
           <h3>Project Three</h3>
         </div>
       </div>
-      <div class="project-card" data-index="3">
-        <div class="card-inner" style="background: linear-gradient(135deg, #2C3E50, #4CA1AF);">
+      <div class="wipe-project" data-index="3">
+        <div class="wipe-layer wipe-bg" style="background: linear-gradient(135deg, #2C3E50, #4CA1AF);"></div>
+        <div class="wipe-layer wipe-accent"></div>
+        <div class="wipe-layer wipe-content">
           <span class="card-num">04</span>
           <h3>Project Four</h3>
         </div>
       </div>
-      <div class="project-card" data-index="4">
-        <div class="card-inner" style="background: linear-gradient(135deg, #DA22FF, #9733EE);">
+      <div class="wipe-project" data-index="4">
+        <div class="wipe-layer wipe-bg" style="background: linear-gradient(135deg, #DA22FF, #9733EE);"></div>
+        <div class="wipe-layer wipe-accent"></div>
+        <div class="wipe-layer wipe-content">
           <span class="card-num">05</span>
           <h3>Project Five</h3>
         </div>
       </div>
-      <div class="project-card" data-index="5">
-        <div class="card-inner" style="background: linear-gradient(135deg, #EB3349, #F45C43);">
+      <div class="wipe-project" data-index="5">
+        <div class="wipe-layer wipe-bg" style="background: linear-gradient(135deg, #EB3349, #F45C43);"></div>
+        <div class="wipe-layer wipe-accent"></div>
+        <div class="wipe-layer wipe-content">
           <span class="card-num">06</span>
           <h3>Project Six</h3>
         </div>
       </div>
+      <div class="wipe-split-line" id="wipeSplitLine"></div>
+      <div class="wipe-black-flash" id="wipeBlackFlash"></div>
     </div>
   </section>
 
-  <!-- Style 2: Circular Wipe -->
-  <section class="style-section" id="style-2">
-    <div class="section-header">
-      <span class="section-num">02</span>
-      <h2 class="section-title">CIRCULAR WIPE REVEAL</h2>
-      <p class="section-desc">Each project takes full viewport. The next project reveals through an expanding circle that follows your cursor position.</p>
-    </div>
-    <div class="circular-wipe-container" id="circularWipe">
-      <div class="wipe-project current" data-index="0" style="background: linear-gradient(135deg, #FF6B6B, #556270);">
-        <span class="card-num">01</span><h3>Project One</h3>
-      </div>
-      <div class="wipe-project next" data-index="1" style="background: linear-gradient(135deg, #E55D87, #5FC3E4);">
-        <span class="card-num">02</span><h3>Project Two</h3>
-      </div>
-      <div class="wipe-project next" data-index="2" style="background: linear-gradient(135deg, #C6426E, #9C27B0);">
-        <span class="card-num">03</span><h3>Project Three</h3>
-      </div>
-      <div class="wipe-project next" data-index="3" style="background: linear-gradient(135deg, #2C3E50, #4CA1AF);">
-        <span class="card-num">04</span><h3>Project Four</h3>
-      </div>
-      <div class="wipe-project next" data-index="4" style="background: linear-gradient(135deg, #DA22FF, #9733EE);">
-        <span class="card-num">05</span><h3>Project Five</h3>
-      </div>
-      <div class="wipe-project next" data-index="5" style="background: linear-gradient(135deg, #EB3349, #F45C43);">
-        <span class="card-num">06</span><h3>Project Six</h3>
-      </div>
-    </div>
-    <div class="wipe-progress-bar"><div class="wipe-progress-fill" id="wipeProgressFill"></div></div>
-  </section>
-
-  <!-- Style 3: Disorder → Order -->
-  <section class="style-section" id="style-3">
-    <div class="section-header">
-      <span class="section-num">03</span>
-      <h2 class="section-title">DISORDER → ORDER</h2>
-      <p class="section-desc">Projects start scattered randomly. As you scroll, they gradually snap into a clean grid with spring-like easing. Scroll back to scatter again.</p>
-    </div>
-    <div class="disorder-container" id="disorderGrid">
-      <div class="disorder-card" data-index="0">
-        <div class="card-inner" style="background: linear-gradient(135deg, #FF6B6B, #556270);">
-          <span class="card-num">01</span><h3>Project One</h3>
-        </div>
-      </div>
-      <div class="disorder-card" data-index="1">
-        <div class="card-inner" style="background: linear-gradient(135deg, #E55D87, #5FC3E4);">
-          <span class="card-num">02</span><h3>Project Two</h3>
-        </div>
-      </div>
-      <div class="disorder-card" data-index="2">
-        <div class="card-inner" style="background: linear-gradient(135deg, #C6426E, #9C27B0);">
-          <span class="card-num">03</span><h3>Project Three</h3>
-        </div>
-      </div>
-      <div class="disorder-card" data-index="3">
-        <div class="card-inner" style="background: linear-gradient(135deg, #2C3E50, #4CA1AF);">
-          <span class="card-num">04</span><h3>Project Four</h3>
-        </div>
-      </div>
-      <div class="disorder-card" data-index="4">
-        <div class="card-inner" style="background: linear-gradient(135deg, #DA22FF, #9733EE);">
-          <span class="card-num">05</span><h3>Project Five</h3>
-        </div>
-      </div>
-      <div class="disorder-card" data-index="5">
-        <div class="card-inner" style="background: linear-gradient(135deg, #EB3349, #F45C43);">
-          <span class="card-num">06</span><h3>Project Six</h3>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Style 4: Perspective Tunnel -->
-  <section class="style-section" id="style-4">
-    <div class="section-header">
-      <span class="section-num">04</span>
-      <h2 class="section-title">PERSPECTIVE TUNNEL</h2>
-      <p class="section-desc">Projects are placed at different z-depths. Scrolling zooms into the next project — it flies toward you, fills the screen, then passes behind you.</p>
-    </div>
-    <div class="tunnel-viewport" id="tunnelViewport">
-      <div class="tunnel-card" data-index="0" style="background: linear-gradient(135deg, #FF6B6B, #556270);">
-        <span class="card-num">01</span><h3>Project One</h3>
-      </div>
-      <div class="tunnel-card" data-index="1" style="background: linear-gradient(135deg, #E55D87, #5FC3E4);">
-        <span class="card-num">02</span><h3>Project Two</h3>
-      </div>
-      <div class="tunnel-card" data-index="2" style="background: linear-gradient(135deg, #C6426E, #9C27B0);">
-        <span class="card-num">03</span><h3>Project Three</h3>
-      </div>
-      <div class="tunnel-card" data-index="3" style="background: linear-gradient(135deg, #2C3E50, #4CA1AF);">
-        <span class="card-num">04</span><h3>Project Four</h3>
-      </div>
-      <div class="tunnel-card" data-index="4" style="background: linear-gradient(135deg, #DA22FF, #9733EE);">
-        <span class="card-num">05</span><h3>Project Five</h3>
-      </div>
-      <div class="tunnel-card" data-index="5" style="background: linear-gradient(135deg, #EB3349, #F45C43);">
-        <span class="card-num">06</span><h3>Project Six</h3>
-      </div>
-    </div>
-  </section>
-
-  <!-- Style 5: Typography Morph -->
+  <!-- ===== SECTION 5: DNA HELIX ===== -->
   <section class="style-section" id="style-5">
     <div class="section-header">
       <span class="section-num">05</span>
-      <h2 class="section-title">TYPOGRAPHY MORPH</h2>
-      <p class="section-desc">No images — just massive titles that morph as you scroll. Characters shuffle out, new ones stagger in. Background color shifts between projects.</p>
+      <h2 class="section-title">DNA HELIX UNRAVEL</h2>
+      <p class="section-desc">Double helix of projects rotating in 3D. Scroll to peel cards off the strand. Always spinning. Always alive.</p>
     </div>
-    <div class="typo-morph-container" id="typoMorph">
-      <div class="typo-project" data-index="0" data-color="#0A0A0A">
-        <span class="card-num small">01</span>
-        <div class="typo-title" data-text="DIMENSION">DIMENSION</div>
+    <div class="helix-viewport" id="helixViewport">
+      <div class="helix-container" id="helixContainer">
+        <div class="helix-card" data-index="0" data-strand="a">
+          <div class="helix-card-inner" style="background: linear-gradient(135deg, #FF6B6B, #556270);">
+            <span class="card-num">01</span><h3>Project One</h3>
+          </div>
+        </div>
+        <div class="helix-card" data-index="1" data-strand="b">
+          <div class="helix-card-inner" style="background: linear-gradient(135deg, #E55D87, #5FC3E4);">
+            <span class="card-num">02</span><h3>Project Two</h3>
+          </div>
+        </div>
+        <div class="helix-card" data-index="2" data-strand="a">
+          <div class="helix-card-inner" style="background: linear-gradient(135deg, #C6426E, #9C27B0);">
+            <span class="card-num">03</span><h3>Project Three</h3>
+          </div>
+        </div>
+        <div class="helix-card" data-index="3" data-strand="b">
+          <div class="helix-card-inner" style="background: linear-gradient(135deg, #2C3E50, #4CA1AF);">
+            <span class="card-num">04</span><h3>Project Four</h3>
+          </div>
+        </div>
+        <div class="helix-card" data-index="4" data-strand="a">
+          <div class="helix-card-inner" style="background: linear-gradient(135deg, #DA22FF, #9733EE);">
+            <span class="card-num">05</span><h3>Project Five</h3>
+          </div>
+        </div>
+        <div class="helix-card" data-index="5" data-strand="b">
+          <div class="helix-card-inner" style="background: linear-gradient(135deg, #EB3349, #F45C43);">
+            <span class="card-num">06</span><h3>Project Six</h3>
+          </div>
+        </div>
       </div>
-      <div class="typo-project" data-index="1" data-color="#1a0a2e">
-        <span class="card-num small">02</span>
-        <div class="typo-title" data-text="FRAGMENT">FRAGMENT</div>
-      </div>
-      <div class="typo-project" data-index="2" data-color="#0a1a2e">
-        <span class="card-num small">03</span>
-        <div class="typo-title" data-text="ECLIPSE">ECLIPSE</div>
-      </div>
-      <div class="typo-project" data-index="3" data-color="#1a2e0a">
-        <span class="card-num small">04</span>
-        <div class="typo-title" data-text="CATALYST">CATALYST</div>
-      </div>
-      <div class="typo-project" data-index="4" data-color="#2e1a0a">
-        <span class="card-num small">05</span>
-        <div class="typo-title" data-text="PARALLAX">PARALLAX</div>
-      </div>
-      <div class="typo-project" data-index="5" data-color="#2e0a1a">
-        <span class="card-num small">06</span>
-        <div class="typo-title" data-text="RESONANCE">RESONANCE</div>
-      </div>
+      <canvas class="helix-particles" id="helixParticles"></canvas>
     </div>
   </section>
 
-  <!-- Style 6: Magnetic Repulsion -->
+  <!-- ===== SECTION 6: VOID COLLAPSE ===== -->
   <section class="style-section" id="style-6">
     <div class="section-header">
       <span class="section-num">06</span>
-      <h2 class="section-title">MAGNETIC REPULSION GRID</h2>
-      <p class="section-desc">Clean 2×3 grid. Hover a project to scale it up — all others get pushed away with distance-based repulsion physics and spring animation.</p>
+      <h2 class="section-title">VOID COLLAPSE</h2>
+      <p class="section-desc">Singularity. Projects materialize from a point of light and collapse back into the void. Birth. Death. Rebirth.</p>
     </div>
-    <div class="magnetic-grid" id="magneticGrid">
-      <div class="magnetic-card" data-index="0">
-        <div class="card-inner" style="background: linear-gradient(135deg, #FF6B6B, #556270);">
+    <div class="void-viewport" id="voidViewport">
+      <div class="void-singularity" id="voidSingularity"></div>
+      <canvas class="void-starfield" id="voidStarfield"></canvas>
+      <div class="void-project-wrapper" id="voidProjectWrapper">
+        <div class="void-project" data-index="0" style="background: linear-gradient(135deg, #FF6B6B, #556270);">
           <span class="card-num">01</span><h3>Project One</h3>
         </div>
-      </div>
-      <div class="magnetic-card" data-index="1">
-        <div class="card-inner" style="background: linear-gradient(135deg, #E55D87, #5FC3E4);">
+        <div class="void-project" data-index="1" style="background: linear-gradient(135deg, #E55D87, #5FC3E4);">
           <span class="card-num">02</span><h3>Project Two</h3>
         </div>
-      </div>
-      <div class="magnetic-card" data-index="2">
-        <div class="card-inner" style="background: linear-gradient(135deg, #C6426E, #9C27B0);">
+        <div class="void-project" data-index="2" style="background: linear-gradient(135deg, #C6426E, #9C27B0);">
           <span class="card-num">03</span><h3>Project Three</h3>
         </div>
-      </div>
-      <div class="magnetic-card" data-index="3">
-        <div class="card-inner" style="background: linear-gradient(135deg, #2C3E50, #4CA1AF);">
+        <div class="void-project" data-index="3" style="background: linear-gradient(135deg, #2C3E50, #4CA1AF);">
           <span class="card-num">04</span><h3>Project Four</h3>
         </div>
-      </div>
-      <div class="magnetic-card" data-index="4">
-        <div class="card-inner" style="background: linear-gradient(135deg, #DA22FF, #9733EE);">
+        <div class="void-project" data-index="4" style="background: linear-gradient(135deg, #DA22FF, #9733EE);">
           <span class="card-num">05</span><h3>Project Five</h3>
         </div>
-      </div>
-      <div class="magnetic-card" data-index="5">
-        <div class="card-inner" style="background: linear-gradient(135deg, #EB3349, #F45C43);">
+        <div class="void-project" data-index="5" style="background: linear-gradient(135deg, #EB3349, #F45C43);">
           <span class="card-num">06</span><h3>Project Six</h3>
         </div>
       </div>
+      <div class="void-flash" id="voidFlash"></div>
     </div>
   </section>
 
   <!-- Footer -->
   <footer class="showcase-footer">
-    <p>Alexmld Portfolio — Animation Showcase</p>
+    <p>Alexmld — Avant-Garde Showcase</p>
     <p class="footer-sub">Built with GSAP + ScrollTrigger</p>
   </footer>
 

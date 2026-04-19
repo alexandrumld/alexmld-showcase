@@ -1,43 +1,44 @@
 /* ============================================
-   Alexmld Gallery Animation Showcase
+   ALEXMLD — AVANT-GARDE GALLERY SHOWCASE
+   Dark cinematic palette, Syne/Inter, GSAP-powered
    ============================================ */
 
+/* --- Reset & Base --- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
 :root {
-  --white: #FFFFFF;
-  --black: #0A0A0A;
-  --gray-dark: #1A1A1A;
-  --gray-mid: #2A2A2A;
-  --gray-light: #888888;
+  --bg: #0A0A0A;
+  --fg: #FFFFFF;
+  --muted: rgba(255,255,255,0.5);
+  --accent: #E55D87;
+  --accent2: #5FC3E4;
   --font-display: 'Syne', sans-serif;
   --font-body: 'Inter', sans-serif;
 }
 
-*, *::before, *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 html {
-  scroll-behavior: auto; /* GSAP handles scrolling */
-  overflow-x: hidden;
-}
-
-body {
-  background: var(--black);
-  color: var(--white);
-  font-family: var(--font-body);
-  overflow-x: hidden;
+  scroll-behavior: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-::selection {
-  background: var(--white);
-  color: var(--black);
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.6;
+  overflow-x: hidden;
 }
 
-/* ---- Floating Nav ---- */
+::selection {
+  background: var(--accent);
+  color: var(--fg);
+}
+
+img { max-width: 100%; display: block; }
+
+/* --- Floating Side Nav --- */
 .float-nav {
   position: fixed;
   right: 24px;
@@ -46,822 +47,787 @@ body {
   z-index: 1000;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 4px;
 }
 
 .nav-link {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.2);
-  color: var(--gray-light);
+  gap: 8px;
   text-decoration: none;
+  color: var(--muted);
   font-family: var(--font-display);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(8px);
-  background: rgba(10,10,10,0.6);
+  letter-spacing: 0.05em;
+  padding: 6px 10px;
+  border-radius: 20px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid transparent;
 }
 
-.nav-link:hover,
+.nav-link:hover {
+  color: var(--fg);
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.1);
+}
+
 .nav-link.active {
-  color: var(--black);
-  background: var(--white);
-  border-color: var(--white);
-  transform: scale(1.1);
+  color: var(--fg);
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.2);
 }
 
-/* ---- Hero ---- */
+.nav-num {
+  font-size: 13px;
+  font-weight: 800;
+  min-width: 20px;
+}
+
+.nav-label {
+  max-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
+}
+
+.nav-link:hover .nav-label,
+.nav-link.active .nav-label {
+  max-width: 150px;
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .float-nav {
+    right: 10px;
+    gap: 2px;
+  }
+  .nav-link {
+    padding: 4px 7px;
+    font-size: 10px;
+  }
+  .nav-label { display: none; }
+}
+
+/* --- Hero --- */
 .hero {
+  position: relative;
   height: 100vh;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  text-align: center;
-  padding: 40px 20px;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-content {
   position: relative;
+  z-index: 2;
+  text-align: center;
 }
 
 .hero-title {
   font-family: var(--font-display);
-  font-size: clamp(48px, 10vw, 120px);
+  font-size: clamp(48px, 12vw, 140px);
   font-weight: 800;
   line-height: 0.95;
-  text-transform: uppercase;
-  letter-spacing: -0.02em;
-  margin-bottom: 24px;
+  letter-spacing: -0.03em;
+  overflow: hidden;
+}
+
+.hero-line {
+  display: block;
+  transform: translateY(110%);
+  will-change: transform;
+}
+
+.hero-line.accent {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .hero-sub {
-  font-family: var(--font-body);
   font-size: clamp(14px, 2vw, 18px);
-  color: var(--gray-light);
-  max-width: 500px;
-  line-height: 1.6;
+  color: var(--muted);
+  margin-top: 24px;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  opacity: 0;
+  transform: translateY(20px);
 }
 
 .scroll-hint {
   position: absolute;
   bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
+  opacity: 0;
 }
 
-.scroll-hint span {
+.scroll-text {
+  font-family: var(--font-display);
   font-size: 11px;
-  text-transform: uppercase;
+  font-weight: 600;
   letter-spacing: 0.15em;
-  color: var(--gray-light);
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
 .scroll-line {
   width: 1px;
   height: 40px;
-  background: var(--gray-light);
-  animation: scrollPulse 1.5s ease-in-out infinite;
+  background: linear-gradient(to bottom, var(--muted), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
 }
 
 @keyframes scrollPulse {
-  0%, 100% { opacity: 0.3; transform: scaleY(0.5); }
-  50% { opacity: 1; transform: scaleY(1); }
+  0%, 100% { opacity: 0.3; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(1.3); }
 }
 
-/* ---- Section Shared ---- */
+.hero-particles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* --- Section Shared --- */
 .style-section {
   position: relative;
   min-height: 100vh;
-  padding: 80px 40px 40px;
+  padding: 0;
 }
 
 .section-header {
-  text-align: center;
-  margin-bottom: 60px;
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 10;
+  padding: 40px clamp(24px, 5vw, 80px);
+  background: linear-gradient(to bottom, var(--bg) 50%, transparent);
+  pointer-events: none;
 }
 
 .section-num {
   font-family: var(--font-display);
-  font-size: 14px;
+  font-size: clamp(11px, 1.3vw, 14px);
   font-weight: 600;
-  color: var(--gray-light);
-  letter-spacing: 0.1em;
+  color: var(--accent);
+  letter-spacing: 0.15em;
   display: block;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .section-title {
   font-family: var(--font-display);
   font-size: clamp(28px, 5vw, 56px);
   font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: -0.01em;
-  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
 }
 
 .section-desc {
   font-size: clamp(13px, 1.5vw, 16px);
-  color: var(--gray-light);
+  color: var(--muted);
+  margin-top: 12px;
   max-width: 600px;
-  margin: 0 auto;
-  line-height: 1.6;
+  font-weight: 300;
+  line-height: 1.5;
 }
 
-/* ---- Project Card Shared ---- */
-.card-inner {
-  width: 100%;
-  height: 100%;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 32px;
-  position: relative;
-  overflow: hidden;
-}
-
+/* --- Shared Card Styles --- */
 .card-num {
   font-family: var(--font-display);
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 800;
+  letter-spacing: 0.1em;
   opacity: 0.7;
-  position: absolute;
-  top: 24px;
-  left: 24px;
+  display: block;
+  margin-bottom: 8px;
 }
 
 .card-num.small {
   font-size: 12px;
-  top: 16px;
-  left: 16px;
 }
 
-.card-inner h3 {
-  font-family: var(--font-display);
-  font-size: clamp(20px, 3vw, 28px);
-  font-weight: 700;
-}
-
-/* ==============================
-   1. Stacked Cards
-   ============================== */
-.stacked-cards-container {
+/* ============================================
+   1. KINETIC SCULPTURE
+   ============================================ */
+.kinetic-viewport {
   position: relative;
-  width: 100%;
-  max-width: 700px;
-  height: 80vh;
-  margin: 0 auto;
-  perspective: 1200px;
+  height: 400vh;
+  pointer-events: none;
 }
 
-.project-card {
-  position: absolute;
-  width: 100%;
-  height: 100%;
+.kinetic-solar-system {
+  position: sticky;
   top: 0;
-  left: 0;
-  transform-origin: center center;
-}
-
-.project-card .card-inner {
-  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-}
-
-/* ==============================
-   2. Circular Wipe
-   ============================== */
-#circularWipe {
-  position: relative;
+  height: 100vh;
   width: 100%;
-  height: 80vh;
-  min-height: 500px;
-  max-height: 800px;
+  perspective: 1200px;
+  perspective-origin: 50% 50%;
   overflow: hidden;
-  border-radius: 16px;
 }
 
-.wipe-project {
+.kinetic-center-glow {
   position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 48px;
-  overflow: hidden;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(229,93,135,0.2) 0%, rgba(229,93,135,0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: glowPulse 4s ease-in-out infinite;
 }
 
-.wipe-project.current {
-  z-index: 1;
+@keyframes glowPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+  50% { transform: translate(-50%, -50%) scale(1.4); opacity: 1; }
 }
 
-.wipe-project.next {
-  z-index: 2;
-  clip-path: circle(0% at 50% 50%);
-}
-
-.wipe-project h3 {
-  font-family: var(--font-display);
-  font-size: clamp(24px, 4vw, 40px);
-  font-weight: 700;
-}
-
-.wipe-progress-bar {
-  width: 100%;
-  max-width: 700px;
-  height: 2px;
-  background: rgba(255,255,255,0.1);
-  margin: 20px auto 0;
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.wipe-progress-fill {
-  height: 100%;
-  width: 0%;
-  background: var(--white);
-  border-radius: 2px;
-}
-
-/* ==============================
-   3. Disorder → Order
-   ============================== */
-.disorder-container {
-  position: relative;
-  width: 100%;
-  max-width: 900px;
-  height: 70vh;
-  min-height: 500px;
-  margin: 0 auto;
-}
-
-.disorder-card {
+.kinetic-orbit-card {
   position: absolute;
-  width: calc(33.333% - 16px);
-  height: calc(50% - 12px);
+  top: 50%;
+  left: 50%;
+  width: 220px;
+  height: 280px;
+  margin-left: -110px;
+  margin-top: -140px;
   will-change: transform;
-}
-
-.disorder-card .card-inner {
-  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-}
-
-/* ==============================
-   4. Perspective Tunnel
-   ============================== */
-.tunnel-viewport {
-  perspective: 1000px;
-  perspective-origin: center center;
-  width: 100%;
-  max-width: 800px;
-  height: 70vh;
-  min-height: 500px;
-  margin: 0 auto;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   transform-style: preserve-3d;
+  cursor: default;
+  pointer-events: auto;
 }
 
-.tunnel-card {
-  position: absolute;
-  width: 80%;
-  max-width: 600px;
-  height: 60%;
-  min-height: 300px;
+.kinetic-card-inner {
+  width: 100%;
+  height: 100%;
   border-radius: 16px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 40px;
+  padding: 24px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  will-change: transform, box-shadow;
   backface-visibility: hidden;
-  will-change: transform;
+  transition: box-shadow 0.3s ease;
 }
 
-.tunnel-card .card-num {
+.kinetic-card-inner h3 {
   font-family: var(--font-display);
-  font-size: 14px;
-  font-weight: 600;
-  opacity: 0.7;
-  position: absolute;
-  top: 24px;
-  left: 24px;
-}
-
-.tunnel-card h3 {
-  font-family: var(--font-display);
-  font-size: clamp(24px, 4vw, 36px);
+  font-size: 20px;
   font-weight: 700;
 }
 
-/* ==============================
-   5. Typography Morph
-   ============================== */
-.typo-morph-container {
-  position: relative;
-  width: 100%;
-  height: 80vh;
-  min-height: 500px;
-  overflow: hidden;
+/* Mobile cards for kinetic */
+.kinetic-mobile {
+  display: none;
+  padding: 20px clamp(16px, 4vw, 40px) 60px;
 }
 
-.typo-project {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  will-change: opacity;
-}
-
-.typo-project.active {
-  opacity: 1;
-}
-
-.typo-title {
-  font-family: var(--font-display);
-  font-size: clamp(48px, 12vw, 160px);
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: -0.03em;
-  line-height: 1;
-  display: flex;
-  overflow: hidden;
-}
-
-.typo-title .char {
-  display: inline-block;
+.mobile-card {
+  margin-bottom: 20px;
   will-change: transform, opacity;
 }
 
-.typo-project .card-num {
-  position: relative;
-  top: auto;
-  left: auto;
-  margin-bottom: 24px;
+.mobile-card-inner {
+  border-radius: 16px;
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 200px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
 }
 
-/* ==============================
-   6. Magnetic Repulsion
-   ============================== */
-.magnetic-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 20px;
-  max-width: 1000px;
-  margin: 0 auto;
-  aspect-ratio: 3 / 2;
-  min-height: 500px;
-  max-height: 700px;
+.mobile-card-inner h3 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
 }
 
-.magnetic-card {
+/* ============================================
+   2. SHATTERING GLASS
+   ============================================ */
+.shatter-viewport {
   position: relative;
-  will-change: transform;
-  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-  border-radius: 12px;
+  height: 600vh;
+}
+
+.shatter-project {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  will-change: transform, opacity, clip-path;
   overflow: hidden;
-  cursor: pointer;
 }
 
-.magnetic-card:hover .card-inner {
-  transform: scale(1.05);
+.shatter-project .card-num {
+  font-size: clamp(60px, 12vw, 100px);
+  font-weight: 800;
+  opacity: 0.06;
+  position: absolute;
+  top: 8%;
+  left: 8%;
+  line-height: 1;
 }
 
-.magnetic-card .card-inner {
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-/* ---- Footer ---- */
-.showcase-footer {
+.shatter-project h3 {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 6vw, 72px);
+  font-weight: 800;
   text-align: center;
-  padding: 80px 20px 40px;
+  position: relative;
+  z-index: 2;
+  text-shadow: 0 4px 30px rgba(0,0,0,0.4);
+}
+
+.shatter-cracks-svg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.shatter-fragments-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 99;
+  perspective: 800px;
+}
+
+.shatter-fragment {
+  position: absolute;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+/* Screen shake */
+@keyframes screenShake {
+  0% { transform: translate(0,0) rotate(0deg); }
+  10% { transform: translate(-8px, 5px) rotate(-0.5deg); }
+  20% { transform: translate(6px, -7px) rotate(0.5deg); }
+  30% { transform: translate(-5px, 3px) rotate(-0.3deg); }
+  40% { transform: translate(5px, -3px) rotate(0.3deg); }
+  50% { transform: translate(-3px, 5px) rotate(-0.2deg); }
+  60% { transform: translate(3px, -3px) rotate(0.1deg); }
+  70% { transform: translate(-1px, 2px) rotate(0deg); }
+  100% { transform: translate(0,0) rotate(0deg); }
+}
+
+.screen-shake {
+  animation: screenShake 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+/* ============================================
+   3. LIQUID MORPH / BLOB
+   ============================================ */
+.blob-viewport {
+  position: relative;
+  height: 500vh;
+}
+
+.blob-svg {
+  position: sticky;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  will-change: transform;
+  overflow: visible;
+}
+
+.blob-drip-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 50;
+}
+
+/* ============================================
+   4. PARALLAX CINEMATIC WIPE
+   ============================================ */
+.wipe-viewport {
+  position: relative;
+  height: 600vh;
+}
+
+.wipe-project {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  will-change: transform, opacity, clip-path;
+}
+
+.wipe-layer {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.wipe-bg {
+  z-index: 1;
+}
+
+.wipe-accent {
+  z-index: 2;
+  background: radial-gradient(ellipse at 25% 15%, rgba(255,255,255,0.07) 0%, transparent 60%);
+}
+
+.wipe-content {
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  text-align: center;
+}
+
+.wipe-content .card-num {
+  font-size: clamp(50px, 10vw, 80px);
+  opacity: 0.04;
+  position: absolute;
+  top: 12%;
+  left: 8%;
+  line-height: 1;
+}
+
+.wipe-content h3 {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 7vw, 80px);
+  font-weight: 800;
+  text-shadow: 0 4px 40px rgba(0,0,0,0.3);
+}
+
+.wipe-split-line {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 300vw;
+  height: 3px;
+  background: linear-gradient(90deg, transparent 5%, rgba(255,255,255,0.9) 30%, rgba(229,93,135,0.6) 50%, rgba(255,255,255,0.9) 70%, transparent 95%);
+  transform-origin: center;
+  z-index: 200;
+  pointer-events: none;
+  opacity: 0;
+  transform: rotate(-45deg) translateX(-100vw);
+  will-change: transform, opacity;
+  filter: blur(0.5px);
+  box-shadow: 0 0 20px rgba(229,93,135,0.3), 0 0 60px rgba(229,93,135,0.1);
+}
+
+.wipe-black-flash {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 150;
+  pointer-events: none;
+  opacity: 0;
+}
+
+/* ============================================
+   5. DNA HELIX
+   ============================================ */
+.helix-viewport {
+  position: relative;
+  height: 500vh;
+}
+
+.helix-container {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  perspective: 1000px;
+  perspective-origin: 50% 45%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.helix-card {
+  position: absolute;
+  width: 200px;
+  height: 260px;
+  will-change: transform;
+  transform-style: preserve-3d;
+  cursor: default;
+  pointer-events: auto;
+}
+
+.helix-card-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+  backface-visibility: hidden;
+}
+
+.helix-card-inner h3 {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.helix-particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.helix-rung {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: rgba(255,255,255,0.12);
+  transform-origin: center center;
+  pointer-events: none;
+  will-change: transform;
+  border-radius: 1px;
+}
+
+/* ============================================
+   6. VOID COLLAPSE
+   ============================================ */
+.void-viewport {
+  position: relative;
+  height: 600vh;
+}
+
+.void-singularity {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.void-singularity::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: white;
+  box-shadow:
+    0 0 40px 12px rgba(255,255,255,0.6),
+    0 0 80px 35px rgba(229,93,135,0.25),
+    0 0 140px 70px rgba(95,195,228,0.1),
+    inset 0 0 8px rgba(255,255,255,0.5);
+  will-change: transform, opacity;
+  animation: singularityPulse 3s ease-in-out infinite;
+}
+
+@keyframes singularityPulse {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.6); opacity: 1; }
+}
+
+.void-starfield {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.void-project-wrapper {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  will-change: transform;
+}
+
+.void-project {
+  position: absolute;
+  width: 75vmin;
+  height: 55vmin;
+  max-width: 680px;
+  max-height: 480px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  will-change: transform, opacity;
+  opacity: 0;
+  transform: scale(0);
+  box-shadow:
+    0 30px 80px rgba(0,0,0,0.6),
+    0 0 60px rgba(229,93,135,0.1);
+}
+
+.void-project .card-num {
+  font-size: clamp(32px, 5vw, 48px);
+  opacity: 0.06;
+  line-height: 1;
+}
+
+.void-project h3 {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 4vw, 40px);
+  font-weight: 800;
+}
+
+.void-flash {
+  position: fixed;
+  inset: 0;
+  background: white;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0;
+  mix-blend-mode: overlay;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.showcase-footer {
+  padding: 80px clamp(24px, 5vw, 80px);
+  text-align: center;
   border-top: 1px solid rgba(255,255,255,0.06);
 }
 
 .showcase-footer p {
   font-family: var(--font-display);
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 600;
+  color: var(--muted);
 }
 
 .footer-sub {
   font-family: var(--font-body);
-  font-size: 13px;
-  color: var(--gray-light);
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.2);
   margin-top: 8px;
 }
 
-/* ==============================
-   Responsive — Tablet (max-width: 768px)
-   ============================== */
-@media (max-width: 768px) {
-  /* Nav → bottom bar */
-  .float-nav {
-    right: auto;
-    left: 50%;
-    top: auto;
-    bottom: 20px;
-    transform: translateX(-50%);
-    flex-direction: row;
-    gap: 8px;
-    padding: 8px 12px;
-    background: rgba(10, 10, 10, 0.85);
-    border-radius: 28px;
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255,255,255,0.08);
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
-
-  .nav-link {
-    width: 36px;
-    height: 36px;
-    font-size: 11px;
-  }
-
-  /* Sections */
-  .style-section {
-    padding: 60px 20px 40px;
-  }
-
-  .section-header {
-    margin-bottom: 32px;
-  }
-
-  .section-title {
-    font-size: clamp(24px, 7vw, 36px);
-  }
-
-  .section-desc {
-    font-size: 14px;
-  }
-
-  /* Stacked Cards: simpler, shorter, no 3D */
-  .stacked-cards-container {
-    height: auto;
-    min-height: 0;
-    perspective: none;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .project-card {
-    position: relative;
-    width: 100%;
-    height: 0;
-    padding-bottom: 65%; /* aspect ratio */
-    top: auto;
-    left: auto;
-  }
-
-  .project-card .card-inner {
-    position: absolute;
-    top: 0;
-    left: 0;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-  }
-
-  /* Circular Wipe: full-width, taller text padding */
-  #circularWipe {
-    border-radius: 12px;
-    min-height: 400px;
-  }
-
-  .wipe-project {
-    padding: 28px 24px;
-  }
-
-  .wipe-project h3 {
-    font-size: clamp(20px, 5vw, 28px);
-  }
-
-  /* Disorder: CSS grid from the start on mobile */
-  .disorder-container {
-    position: relative;
-    height: auto;
-    min-height: 0;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    gap: 12px;
-    aspect-ratio: auto;
-    min-height: 500px;
-  }
-
-  .disorder-card {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    will-change: auto;
-  }
-
-  .disorder-card .card-inner {
-    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-  }
-
-  /* Tunnel: no 3D, just stacked cards */
-  .tunnel-viewport {
-    perspective: none;
-    transform-style: flat;
-    height: auto;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    overflow: visible;
-  }
-
-  .tunnel-card {
-    position: relative;
-    width: 100%;
-    max-width: none;
-    height: 0;
-    padding-bottom: 65%;
-    min-height: 0;
-    border-radius: 12px;
-    padding: 0;
-    backface-visibility: visible;
-    will-change: auto;
-  }
-
-  .tunnel-card .card-inner,
-  .tunnel-card .card-num,
-  .tunnel-card h3 {
-    /* inner content needs no special override */
-  }
-
-  /* Typography Morph: smaller fonts */
-  .typo-morph-container {
-    min-height: 400px;
-  }
-
-  .typo-title {
-    font-size: clamp(36px, 10vw, 80px) !important;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .typo-title .char {
-    will-change: auto;
-  }
-
-  /* Magnetic Grid: 2 columns */
-  .magnetic-grid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    min-height: 500px;
-    max-height: none;
-    aspect-ratio: auto;
-    gap: 12px;
-  }
-
-  .magnetic-card {
-    will-change: auto;
-  }
-
-  /* Cards */
-  .card-inner {
-    padding: 20px;
-    border-radius: 12px;
-  }
-
-  .card-inner h3 {
-    font-size: 16px;
-  }
-
-  .card-num {
-    font-size: 12px;
-    top: 16px;
-    left: 16px;
-  }
+  .hero-line { transform: none !important; }
+  .hero-sub { opacity: 1 !important; transform: none !important; }
+  .scroll-hint { opacity: 1 !important; }
+  .kinetic-orbit-card { opacity: 1 !important; }
+  .void-project { opacity: 1 !important; transform: none !important; }
 }
 
-/* ==============================
-   Responsive — Phone (max-width: 480px)
-   ============================== */
-@media (max-width: 480px) {
-  .style-section {
-    padding: 40px 16px 24px;
-  }
-
+/* ============================================
+   MOBILE OVERRIDES
+   ============================================ */
+@media (max-width: 768px) {
   .section-header {
-    margin-bottom: 24px;
-  }
-
-  .section-title {
-    font-size: clamp(20px, 8vw, 28px);
-  }
-
-  .section-desc {
-    font-size: 13px;
-    line-height: 1.5;
-  }
-
-  /* Hero adjustments */
-  .hero {
-    padding: 24px 16px;
-  }
-
-  .hero-title {
-    font-size: clamp(36px, 12vw, 60px);
-    line-height: 0.9;
-    margin-bottom: 16px;
-  }
-
-  .hero-sub {
-    font-size: 13px;
-  }
-
-  .scroll-hint {
-    bottom: 24px;
-  }
-
-  /* Stacked cards: even more compact */
-  .stacked-cards-container {
-    gap: 12px;
-  }
-
-  .project-card {
-    padding-bottom: 70%;
-  }
-
-  /* Circular Wipe */
-  #circularWipe {
-    min-height: 350px;
-    border-radius: 8px;
-  }
-
-  .wipe-project {
     padding: 20px 16px;
   }
 
-  .wipe-project h3 {
-    font-size: 18px;
+  /* Kinetic: hide desktop, show mobile */
+  .kinetic-solar-system { display: none !important; }
+  .kinetic-viewport { display: none !important; }
+  .kinetic-mobile { display: block !important; }
+
+  /* Helix: simplified */
+  .helix-container { perspective: none; }
+  .helix-particles { display: none !important; }
+  .helix-rung { display: none !important; }
+  .helix-viewport { height: auto !important; min-height: 100vh; padding-bottom: 60px; }
+  .helix-card {
+    position: relative !important;
+    width: 85% !important;
+    max-width: 360px;
+    height: auto !important;
+    margin: 0 auto 16px !important;
+    transform: none !important;
+  }
+  .helix-card-inner {
+    min-height: 180px;
   }
 
-  /* Disorder */
-  .disorder-container {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
+  /* Void: simplified */
+  .void-starfield { display: none !important; }
+  .void-singularity::before {
+    width: 4px;
+    height: 4px;
+    box-shadow:
+      0 0 20px 6px rgba(255,255,255,0.5),
+      0 0 40px 15px rgba(229,93,135,0.15);
+  }
+  .void-project {
+    width: 85vmin;
+    height: 60vmin;
   }
 
-  /* Tunnel */
-  .tunnel-viewport {
-    gap: 12px;
-  }
+  /* Blob: simplified */
+  .blob-viewport { height: 300vh !important; }
+  .blob-drip-canvas { display: none !important; }
 
-  .tunnel-card {
-    padding-bottom: 75%;
-    border-radius: 8px;
-  }
+  /* Shatter: simplified */
+  .shatter-viewport { height: 300vh !important; }
+  .shatter-cracks-svg { display: none !important; }
+  .shatter-fragments-container { display: none !important; }
+  .shatter-project { height: 50vh; }
 
-  /* Typography morph */
-  .typo-morph-container {
-    min-height: 350px;
-  }
-
-  .typo-title {
-    font-size: clamp(28px, 11vw, 56px) !important;
-  }
-
-  /* Magnetic Grid: single column on phone */
-  .magnetic-grid {
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(6, 1fr);
-    min-height: 0;
-    gap: 10px;
-  }
-
-  .magnetic-card {
-    min-height: 120px;
-  }
-
-  /* Card text */
-  .card-inner {
-    padding: 16px;
-  }
-
-  .card-inner h3 {
-    font-size: 15px;
-  }
-
-  /* Footer */
-  .showcase-footer {
-    padding: 40px 16px 24px;
-  }
-
-  .showcase-footer p {
-    font-size: 16px;
-  }
-
-  /* Nav */
-  .float-nav {
-    bottom: 12px;
-    gap: 4px;
-    padding: 6px 10px;
-  }
-
-  .nav-link {
-    width: 32px;
-    height: 32px;
-    font-size: 10px;
-  }
-}
-
-/* ==============================
-   Touch device (hover: none) rules
-   ============================== */
-@media (hover: none) {
-  /* Disable hover-scale on magnetic cards */
-  .magnetic-card:hover .card-inner {
-    transform: none;
-  }
-
-  /* Remove will-change to save GPU memory */
-  .disorder-card,
-  .tunnel-card,
-  .magnetic-card,
-  .typo-title .char {
-    will-change: auto;
-  }
-
-  /* Reduce blur effects */
-  .nav-link {
-    backdrop-filter: none;
-    background: rgba(10, 10, 10, 0.9);
-  }
-
-  .float-nav {
-    backdrop-filter: none;
-    background: rgba(10, 10, 10, 0.9);
-  }
-
-  /* Simpler transitions on touch */
-  .magnetic-card {
-    transition: none;
-  }
-
-  .magnetic-card .card-inner {
-    transition: transform 0.2s ease;
-  }
-
-  /* Active state for touch */
-  .magnetic-card:active .card-inner {
-    transform: scale(1.03);
-  }
-
-  /* Remove hover cursor change */
-  .magnetic-card {
-    cursor: default;
-  }
-
-  /* Reduce motion preference */
-  .scroll-line {
-    animation: none;
-    opacity: 0.5;
-  }
-}
-
-/* ==============================
-   Reduced motion preference
-   ============================== */
-@media (prefers-reduced-motion: reduce) {
-  .scroll-line {
-    animation: none;
-    opacity: 0.5;
-  }
-
-  .magnetic-card,
-  .magnetic-card .card-inner,
-  .nav-link {
-    transition: none;
-  }
-}
-
-/* ==============================
-   Safe area for notched phones
-   ============================== */
-@supports (padding-bottom: env(safe-area-inset-bottom)) {
-  .float-nav {
-    bottom: calc(12px + env(safe-area-inset-bottom));
-  }
-
-  .showcase-footer {
-    padding-bottom: calc(24px + env(safe-area-inset-bottom));
-  }
+  /* Wipe: simplified */
+  .wipe-viewport { height: 300vh !important; }
+  .wipe-split-line { display: none !important; }
+  .wipe-black-flash { display: none !important; }
+  .wipe-project { height: 50vh; }
 }
